@@ -6,7 +6,18 @@ const loginFormHandler = async (event) => { // form to handle logins
     const password = document.querySelector('#password-login').value.trim();
   
     if (email && password) { // make sure they exist
-        console.log("Welcome back " + email);
+      const response = await fetch('/api/users/login', { // Send POST request to the api
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      if (response.ok) {
+        // If we log in, send user to their dashboard
+        document.location.replace('/dashboard');
+      } else {
+        alert(response.statusText);
+      }
     };
 }
 
@@ -19,7 +30,18 @@ const signupFormHandler = async (event) => { // form to handle people signing up
     const password = document.querySelector('#password-signup').value.trim();
 
     if (name && email && password) { // make sure they exist
-        console.log("Welcome " + name);
+      const response = await fetch('/api/users', { // Send out a POST request to the api
+        method: 'POST',
+        body: JSON.stringify({ name, email, password }),
+        headers: { 'Content-Type': 'application/json' },
+      });
+  
+      if (response.ok) {
+        // If we log in, send user to their dashboard
+        document.location.replace('/dashboard');
+      } else {
+        alert(response.statusText);
+      }
     }
 };
   

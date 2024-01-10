@@ -9,6 +9,7 @@ const seedDatabase = async () => { // Asynchronus because we want to have users 
   await sequelize.sync({ force: true });
 
   const users = await User.bulkCreate(userData, { // Create the users
+    individualHooks: true,
     returning: true,
   });
 

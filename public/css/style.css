@@ -2,3 +2,13 @@
     font-weight: bold;
     text-decoration: underline;
 }
+
+.unButton {
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    color: red;
+    text-decoration: none;
+    font-size: 100%;
+  }
