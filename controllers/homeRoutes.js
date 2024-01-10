@@ -19,7 +19,8 @@ router.get('/', async (req, res) => {
 
         // send that data to the template
         res.render('homepage', {
-            blogs
+            blogs,
+            logged_in: req.session.logged_in
         });
     } catch (err){
         res.json(500).json(err);
@@ -40,7 +41,8 @@ router.get('/blog/:id', async (req, res) => {
       const blog = blogData.get({ plain: true });
   
       res.render('blog', {
-        ...blog
+        ...blog,
+        logged_in: req.session.logged_in
       });
     } catch (err) {
       res.status(500).json(err);
@@ -56,7 +58,11 @@ router.get('/dashboard', (req, res) => {
 
 
 router.get('/login', (req, res) => {
-  
+    if (req.session.logged_in) { // if we are logged in, send user to dashboard
+        res.redirect('/dashboard');
+        return;
+    }
+
     res.render('login');
 });
 

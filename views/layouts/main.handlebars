@@ -19,11 +19,21 @@
             <ul class="nav navbar-nav position-right">
                 <li><a href="/"><h1>Home</h1></a></li>
                 <li><a href="/dashboard"><h1>My Dashboard</h1></a></li>
-                <li><a href="/login"><h1>Login / Logout</h1></a></li>
+                <li>
+                {{#if logged_in}}
+                    <a><button type="button" class="unButton" id="logout"><h1>Logout</h1></button></a>
+                {{else}}
+                    <a href="/login"><h1>Login</h1></a>
+                {{/if}}
+                </li>
             </ul>
         </div>
     </nav>
 
     {{{ body }}}
+
+    {{#if logged_in}}
+    <script src="/js/logout.js"></script>
+    {{/if}}
 </body>
 </html>
