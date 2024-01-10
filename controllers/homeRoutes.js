@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const { User, Blog, Comment } = require('../models');
+const withAuth = require('../utils/auth');
 
 router.get('/', async (req, res) => {
    
@@ -50,12 +51,23 @@ router.get('/blog/:id', async (req, res) => {
 });
 
 
-router.get('/dashboard', (req, res) => {
-  
-    res.render('dashboard');
+router.get('/dashboard', withAuth, async (req, res) => {
+  try {
+    const userData = await User.findByPk(req.session.user_id, { // find user logged in
+      attributes: { exclude: ['password'] },
+      include: [{ model: Blog }],
+    });
+
+    const user = userData.get({ plain: true });
+
+    res.render('dashboard', {
+      ...user,
+      logged_in: true
+    });
+  } catch (err) {
+    res.status(500).json(err);
+  }
 });
-
-
 
 router.get('/login', (req, res) => {
     if (req.session.logged_in) { // if we are logged in, send user to dashboard
