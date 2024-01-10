@@ -1,7 +1,7 @@
 const router = require('express').Router();
 
-const homePageRoutes = require('./homePageRoutes');
+const homeRoutes = require('./homeRoutes');
 
-router.use('/', homePageRoutes);
+router.use('/', homeRoutes);
 
 module.exports = router;
