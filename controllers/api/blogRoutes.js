@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { Blog } = require('../../models');
+const { Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
 router.post('/', withAuth, async (req, res) => { // POST route to create a blog
@@ -13,6 +13,24 @@ router.post('/', withAuth, async (req, res) => { // POST route to create a blog
     } catch (err) {
       res.status(400).json(err);
     }
+});
+
+router.post('/comments', withAuth, async (req, res) => { // POST route to create a comment
+  try {     
+    const data = JSON.parse(JSON.stringify(req.body)); // Parse the data from the request body
+   
+    const newComment = await Comment.create({ // Create the comment with the data
+      contents: data.bodyObject.contents, // Note when I sent out POST request it was called 'bodyObject'
+      blog_id: data.bodyObject.blogId,
+      user_id: req.session.user_id,
+    });
+
+    res.status(200).json(newComment);
+    
+  } catch (err) {
+    res.status(400).json(err);
+  }
+
 });
 
 router.delete('/:id', withAuth, async (req, res) => { // DELETE route to delete a blog
