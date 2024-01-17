@@ -15,6 +15,29 @@ router.post('/', withAuth, async (req, res) => { // POST route to create a blog
     }
 });
 
+router.put('/update', withAuth, async (req, res) => { // POST route to update a blog
+
+  try {
+    const updatedData = JSON.parse(JSON.stringify(req.body)); // Parse the data from the request body
+
+    console.log("#################    " + updatedData.blogObject.contents + "   ID:     " + updatedData.blogObject.blogId);
+
+    const updateBlog = await Blog.update(// Update it
+      { contents: updatedData.blogObject.contents, title: updatedData.blogObject.blogTitle},
+      {
+        where: { // Where id is equal to the blog id
+          id: updatedData.blogObject.blogId, // Note when I sent out POST request it was called 'blogObject'
+        },
+      }
+    );
+
+    res.status(200).json(updateBlog);
+  } catch (err) {
+    res.status(400).json(err);
+  }
+
+});
+
 router.post('/comments', withAuth, async (req, res) => { // POST route to create a comment
   try {     
     const data = JSON.parse(JSON.stringify(req.body)); // Parse the data from the request body

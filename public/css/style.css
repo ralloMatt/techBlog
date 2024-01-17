@@ -20,3 +20,17 @@
 .comment {
     background-color: beige;
 }
+
+.inlineMe {
+    display: inline;
+}
+
+.centerMe {
+    text-align: center;
+}
+
+.boldMe {
+    font-weight: bold;
+    color: black;
+    text-decoration: underline;
+}

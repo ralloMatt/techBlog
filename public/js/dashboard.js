@@ -16,7 +16,7 @@ const createBlogFormHandler = async (event) => { // handles form to create a blo
       if (response.ok) {
         document.location.replace('/dashboard'); // refresh page
       } else {
-        alert('Failed to create project');
+        alert('Failed to create blog');
       }
     }
 };
@@ -35,7 +35,7 @@ const delButtonClick = async (event) => { // Delete button handler
       if (response.ok) {
         document.location.replace('/dashboard'); // if we are ok then 'refresh' dashboard page
       } else {
-        alert('Failed to delete project');
+        alert('Failed to delete blog');
       }
     }
 };

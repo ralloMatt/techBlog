@@ -28,7 +28,6 @@
     </form>
     </div>
 
-
     {{#if blogs.length}} <!-- See if blogs exist -->
     <div class="blogList container col-md-5">
         <h2>Your Blogs:</h2>
@@ -38,7 +37,7 @@
             <h2>
                 <span for="img" aria-label="laptop">💻</span>
                 <a href="/blog/{{blog.id}}">{{blog.title}}</a>
-                <button class="btn btn-sm btn-danger" dataId="{{blog.id}}">Delete</button>
+                <button class="btn btn-sm btn-danger delButt inlineMe" dataId="{{blog.id}}">Delete</button>
             </h2>
         </div>
         {{/each}}
