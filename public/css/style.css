@@ -15,4 +15,8 @@
 
 .goRight {
     padding-left: 25px;
-  }
+}
+
+.comment {
+    background-color: beige;
+}

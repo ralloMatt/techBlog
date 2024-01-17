@@ -40,9 +40,23 @@ router.get('/blog/:id', async (req, res) => {
       });
   
       const blog = blogData.get({ plain: true });
+
+      const commentData = await Comment.findAll({ // Get commentes
+        where: { // WHERE blog_id == blog.id (from the first model)
+          blog_id: blog.id
+        },
+        include: [{ // Include user associated with that comment
+          model: User,
+          attributes: ['name'],
+         }],
+        
+      });
   
+      const comments = commentData.map((comment) => comment.get({ plain: true}));
+
       res.render('blog', {
         ...blog,
+        comments,
         logged_in: req.session.logged_in
       });
     } catch (err) {
